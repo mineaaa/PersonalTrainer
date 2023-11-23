@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import CustomerGrid from "./customerGrid";
+import AddCustomer from "./addCustomer";
+import EditCustomer from "./editCustomer";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
+    const [message, setMessage] = useState('');
+    const [open, setOpen] = useState(false);
 
     const customer_URL = 'https://traineeapp.azurewebsites.net/api/customers';
 
@@ -21,11 +25,74 @@ export default function CustomerList() {
     useEffect(() => {
         getCustomers();
     }, []);
+
+    const addCustomer = (customer) => {
+        fetch(customer_URL,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(customer)
+
+            })
+            .then(response => {
+                if (response.ok) {
+                    getCustomers();
+                }
+                else {
+                    alert("Couldn't add a customer")
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
+    const deleteCustomer = (params) => {
+        if (window.confirm('Are you sure you want to delete this customer?')) {
+            console.log("params: ", params.data.links[0].href)
+            fetch(params.data.links[0].href, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        setMessage('Customer was deleted succesfully');
+                        setOpen(true);
+                        getCustomers();
+                    } else {
+                        alert('Something went wrong!');
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+    }
+
+    const updateCustomer = (customer, link) => {
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(customer)
+        })
+            .then(response => {
+                if (response.ok) {
+                    props.getCustomers();
+                    setMessage("Client's information was updated")
+                    setOpen(true)
+                } else {
+                    console.log(JSON.stringify(customer));
+                    alert("Customer's information could not be edited")
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
     return (
         <>
-            <h1>🩵 Customers 🩵</h1>
 
-            <CustomerGrid customers={customers} />
+            <h1>🩵 Customers 🩵</h1>
+            <AddCustomer addCustomer={addCustomer} />
+            <EditCustomer updateCustomer={updateCustomer} />
+            <CustomerGrid customers={customers} deleteCustomer={deleteCustomer} updateCustomer={updateCustomer} />
         </>
     );
 }
