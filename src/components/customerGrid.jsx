@@ -5,6 +5,7 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 import { Button } from "@mui/material";
 import EditCustomer from "./editCustomer";
 
+
 export default function customerGrid(props) {
 
     const gridRef = useRef();
@@ -59,25 +60,25 @@ export default function customerGrid(props) {
             floatingFilter: true
         },
         {
+            cellRenderer: params => <EditCustomer
+                customer={params.data}
+                updateCustomer={props.updateCustomer}
+            />, width: 150
+        },
+        {
             cellRenderer: params =>
                 <Button
                     size="small"
                     color="error"
                     onClick={() => props.deleteCustomer(params)}>
                     Delete
-                </Button>,
-            width: 120
+                </Button>
         },
-        {
-            cellRenderer: params =>
-                <EditCustomer params={params.data} updateCustomer={props.updateCustomer} />
-            , width: 120
-        }
+
     ];
 
     return (
         <>
-
             <div className="ag-theme-material"
                 style={{ height: '700px', width: '95%', margin: 'auto' }} >
 
@@ -90,8 +91,6 @@ export default function customerGrid(props) {
                     rowSelection="single"
                     onGridReady={params => gridRef.current = params.api}
                 >
-
-
                 </AgGridReact>
             </div>
 

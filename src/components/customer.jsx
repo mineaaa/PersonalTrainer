@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CustomerGrid from "./customerGrid";
 import AddCustomer from "./addCustomer";
-import EditCustomer from "./editCustomer";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
@@ -75,23 +74,22 @@ export default function CustomerList() {
         })
             .then(response => {
                 if (response.ok) {
-                    props.getCustomers();
-                    setMessage("Client's information was updated")
-                    setOpen(true)
+                    getCustomers();
+                    setMessage("Client's information was updated");
+                    setOpen(true);
                 } else {
                     console.log(JSON.stringify(customer));
-                    alert("Customer's information could not be edited")
+                    alert("Customer's information could not be edited");
                 }
             })
-            .catch(error => console.log(error))
-    }
+            .catch(error => console.log(error));
+    };
 
     return (
         <>
 
             <h1>🩵 Customers 🩵</h1>
             <AddCustomer addCustomer={addCustomer} />
-            <EditCustomer updateCustomer={updateCustomer} />
             <CustomerGrid customers={customers} deleteCustomer={deleteCustomer} updateCustomer={updateCustomer} />
         </>
     );
