@@ -44,37 +44,49 @@ export default function AddCustomer(props) {
                         name="firstname"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='Lastname'
                         value={customer.lastname}
                         name="lastname"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='Streetaddress'
                         value={customer.streetaddress}
                         name="streetaddress"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='Postcode'
                         value={customer.postcode}
                         name="postcode"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='City'
                         value={customer.city}
                         name="city"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='E-mail'
                         value={customer.email}
                         name="email"
                         onChange={handleInputChanged}
                     ></TextField>
+                    <br />
                     <TextField
+                        margin="dense"
                         label='Phone'
                         value={customer.phone}
                         name="phone"

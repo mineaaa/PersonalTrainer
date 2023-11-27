@@ -5,7 +5,7 @@ import { Link, Outlet } from 'react-router-dom';
 function App() {
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="sticky" style={{ backgroundColor: 'pink' }}>
         <Typography variant='h6'>
           Personal Trainer
         </Typography>

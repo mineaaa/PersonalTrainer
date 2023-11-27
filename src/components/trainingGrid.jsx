@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import { Button } from "@mui/material";
 
 export default function TrainingGrid(props) {
     const gridRef = useRef();
@@ -31,6 +32,15 @@ export default function TrainingGrid(props) {
         {
             headerName: "Firstname",
             field: "customer.firstname",
+            valueGetter: (params) => {
+                const customer = params.data.customer;
+                if (customer && customer.firstname) {
+                    return `${customer.firstname}`;
+                }
+                else {
+                    return '';
+                }
+            },
             sortable: true,
             filter: true,
             floatingFilter: true,
@@ -38,13 +48,30 @@ export default function TrainingGrid(props) {
         {
             headerName: "Lastname",
             field: "customer.lastname",
+            valueGetter: (params) => {
+                const customer = params.data.customer;
+                if (customer && customer.lastname) {
+                    return `${customer.lastname}`
+                }
+                else {
+                    return '';
+                }
+            },
             sortable: true,
             filter: true,
             floatingFilter: true,
+        },
+        {
+            cellRenderer: params =>
+                <Button
+                    size="small"
+                    color="error"
+                    onClick={() => props.deleteTraining(params)}>
+                    Delete
+                </Button>,
+            width: 120
         }
     ];
-
-
 
     return (
         <div className="ag-theme-material" style={{ height: '700px', width: '95%', margin: 'auto' }}>
@@ -56,7 +83,6 @@ export default function TrainingGrid(props) {
                 rowSelection="single"
                 onGridReady={params => gridRef.current = params.api}
             />
-
         </div>
     );
 }
