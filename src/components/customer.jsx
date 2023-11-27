@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CustomerGrid from "./customerGrid";
 import AddCustomer from "./addCustomer";
+import { CSVLink, CSVDownload } from "react-csv";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
@@ -85,11 +86,22 @@ export default function CustomerList() {
             .catch(error => console.log(error));
     };
 
+    const csvData = customers.map(customer => ({
+        FirstName: customer.firstname,
+        LastName: customer.lastname,
+        Address: customer.streetaddress,
+        Postcode: customer.postcode,
+        City: customer.city,
+        Email: customer.email,
+        Phone: customer.phone
+    }));
+
     return (
         <>
 
             <h1>🩵 Customers 🩵</h1>
             <AddCustomer addCustomer={addCustomer} />
+            <CSVLink data={csvData} filename={"customerlist.csv"}>Download CSV file</CSVLink>
             <CustomerGrid customers={customers} deleteCustomer={deleteCustomer} updateCustomer={updateCustomer} />
         </>
     );

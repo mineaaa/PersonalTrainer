@@ -46,19 +46,15 @@ export default function TrainingList() {
 
 
     const addTraining = (training) => {
-        const customersValue = customers.find(customer => customer.id === training.customer);
-
-        const trainingsValue = {
-            date: dayjs(training.date).toISOString(),
-            activity: training.activity,
-            duration: training.duration,
-            customer: `https://traineeapp.azurewebsites.net/api/customers/${customersValue.id}`
-        };
-
         fetch(add_trainingURL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(trainingsValue),
+            body: JSON.stringify({
+                date: dayjs(training.date).toISOString(),
+                activity: training.activity,
+                duration: training.duration,
+                customer: `https://traineeapp.azurewebsites.net/api/customers/${training.customer}`,
+            }),
         })
             .then(response => {
                 if (response.ok) {

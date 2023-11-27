@@ -22,7 +22,7 @@ export default function EditCustomer(props) {
     }
 
     const handleSave = () => {
-        props.updateCustomer(customer, props.customer?.links[0].href || ''); // Add conditional check
+        props.updateCustomer(customer, props.customer?.links[0].href || '');
         setOpen(false);
     }
 
