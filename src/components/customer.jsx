@@ -99,9 +99,9 @@ export default function CustomerList() {
     return (
         <>
 
-            <h1>🩵 Customers 🩵</h1>
+            <h1>👥🩵 Customers 🩵👥</h1>
             <AddCustomer addCustomer={addCustomer} />
-            <CSVLink data={csvData} filename={"customerlist.csv"}>Download CSV file</CSVLink>
+            <CSVLink data={csvData} filename={"customerlist.csv"} separator={";"}>Download CSV file</CSVLink>
             <CustomerGrid customers={customers} deleteCustomer={deleteCustomer} updateCustomer={updateCustomer} />
         </>
     );

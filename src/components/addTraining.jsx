@@ -11,7 +11,6 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { format, parse } from "date-fns";
 
 export default function AddTraining(props) {
     const [training, setTraining] = useState({

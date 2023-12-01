@@ -4,6 +4,7 @@ import TrainingGrid from "./trainingGrid";
 import AddTraining from "./addTraining";
 import dayjs from "dayjs"
 
+
 export default function TrainingList() {
     const [trainings, setTrainings] = useState([]);
     const [message, setMessage] = useState('');
@@ -89,10 +90,12 @@ export default function TrainingList() {
 
     return (
         <>
-
             <h1> 🤍 🏋️‍♀️Trainings 🏋️‍♀️🤍</h1>
             <AddTraining addTraining={addTraining} customers={customers} />
             <TrainingGrid trainings={trainings} deleteTraining={deleteTraining} />
+
+
+
         </>
     );
 }
