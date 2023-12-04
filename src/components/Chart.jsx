@@ -17,11 +17,11 @@ export default function Chart() {
                 }));
 
                 const groupedTrainings = _.groupBy(formattedTrainings, 'activity');
-                const categories = _.keys(groupedTrainings);
+                const trainingTypes = _.keys(groupedTrainings);
                 const durations = _.map(groupedTrainings, activities => _.sumBy(activities, 'duration'));
 
                 setChartData({
-                    xAxis: [{ id: 'barTypes', data: categories, scaleType: 'band' }],
+                    xAxis: [{ id: 'barTypes', data: trainingTypes, scaleType: 'band' }],
                     series: [{ data: durations }],
                 });
             })

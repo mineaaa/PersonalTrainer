@@ -14,14 +14,16 @@ export default function TrainingCalendar() {
         fetch(trainingURL)
             .then(response => response.json())
             .then(responseData => {
-                const formattedEvents = responseData.map(training => ({
-                    id: training.id,
-                    title: training.activity,
-                    customer_firstname: training.customer.firstname,
-                    customer_lastname: training.customer.lastname,
-                    start: new Date(training.date),
-                    end: new Date(moment(training.date).add(training.duration, 'minutes')),
-                }));
+                const formattedEvents = responseData
+                    .filter(training => training.customer)
+                    .map(training => ({
+                        id: training.id,
+                        title: training.activity,
+                        customer_firstname: training.customer.firstname,
+                        customer_lastname: training.customer.lastname,
+                        start: new Date(training.date),
+                        end: new Date(moment(training.date).add(training.duration, 'minutes')),
+                    }));
 
                 setEvents(formattedEvents);
             })
