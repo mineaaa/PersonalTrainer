@@ -50,8 +50,9 @@ export default function CustomerList() {
 
     const deleteCustomer = (params) => {
         if (window.confirm('Are you sure you want to delete this customer?')) {
-            console.log("params: ", params.data.links[0].href)
-            fetch(params.data.links[0].href, { method: 'DELETE' })
+            console.log("params: ", params.data.links[0].href.replace('http://', 'https://'))
+            //link = link.replace('http://', 'https://')
+            fetch(params.data.links[0].href.replace('http://', 'https://'), { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
                         setMessage('Customer was deleted succesfully');
@@ -68,13 +69,16 @@ export default function CustomerList() {
     }
 
     const updateCustomer = (customer, link) => {
+        link = link.replace('http://', 'https://')
+        console.log(link)
         fetch(link, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(customer)
+            body: JSON.stringify(customer),
+
         })
             .then(response => {
                 if (response.ok) {

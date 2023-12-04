@@ -22,25 +22,26 @@ const router = createBrowserRouter([
         index: true
       },
       {
-        path: "customer",
+        path: "/customer",
         element: <CustomerList />,
       },
       {
-        path: "training",
+        path: "/training",
         element: <TrainingList />
       },
       {
-        path: "calendar",
+        path: "/calendar",
         element: <TrainingCalendar />
       },
       {
-        path: "chart",
+        path: "/chart",
         element: <Chart />
       },
     ]
   }
 
-])
+], { basename: "/PersonalTrainer" }
+);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
