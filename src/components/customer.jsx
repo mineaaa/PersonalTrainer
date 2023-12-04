@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import CustomerGrid from "./customerGrid";
 import AddCustomer from "./addCustomer";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
+import { Snackbar } from "@mui/material";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
@@ -37,6 +38,8 @@ export default function CustomerList() {
             .then(response => {
                 if (response.ok) {
                     getCustomers();
+                    setMessage("Client was added");
+                    setOpen(true);
                 }
                 else {
                     alert("Couldn't add a customer")
@@ -103,6 +106,13 @@ export default function CustomerList() {
             <AddCustomer addCustomer={addCustomer} />
             <CSVLink data={csvData} filename={"customerlist.csv"} separator={";"}>Download CSV file</CSVLink>
             <CustomerGrid customers={customers} deleteCustomer={deleteCustomer} updateCustomer={updateCustomer} />
+
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={() => setOpen(false)}
+                message={message}
+            ></Snackbar>
         </>
     );
 }

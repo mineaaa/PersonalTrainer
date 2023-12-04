@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import TrainingGrid from "./trainingGrid";
 import AddTraining from "./addTraining";
 import dayjs from "dayjs"
+import { Snackbar } from "@mui/material";
 
 
 export default function TrainingList() {
@@ -59,6 +60,8 @@ export default function TrainingList() {
         })
             .then(response => {
                 if (response.ok) {
+                    setMessage('Training was added succesfully');
+                    setOpen(true);
                     getTrainings();
                 } else {
                     alert('Adding a training failed');
@@ -94,7 +97,12 @@ export default function TrainingList() {
             <AddTraining addTraining={addTraining} customers={customers} />
             <TrainingGrid trainings={trainings} deleteTraining={deleteTraining} />
 
-
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={() => setOpen(false)}
+                message={message}
+            ></Snackbar>
 
         </>
     );

@@ -16,12 +16,10 @@ function App() {
         <div className="App">
           <nav>
             <Link to={"/"}>Home</Link>
-            <br></br>
             <Link to={"/customer"}>Customer</Link>
-            <br></br>
             <Link to={"/training"}>Training</Link>
-            <br></br>
             <Link to={"/calendar"} >Calendar</Link>
+            <Link to={"/chart"}>Chart</Link>
           </nav>
           <Outlet />
         </div>
